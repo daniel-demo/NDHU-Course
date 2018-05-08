@@ -1,0 +1,51 @@
+{"correlationId":"1","dldata":{"macAddr":"050102dc","data":"303132333435","extra":{"port":103,"txpara":"22"}}}
+
+
+
+
+#include <Wire.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial LoRaUART(10, 11);
+
+void setup() 
+{
+ Serial.begin(9600);
+ LoRaUART.begin(9600);  
+ Serial.println("Serial Ready");
+}
+
+String s = "";
+String j = "";
+    
+void loop() 
+{
+  s = "";
+  j = "";
+    while (!LoRaUART.available()) {;}
+    s = LoRaUART.readString();
+    Serial.println(s); 
+    
+    if (s.indexOf("Radio Rx Done")>=0) 
+    {
+        Serial.println("AT+DRX?");
+        LoRaUART.println("AT+DRX?");
+        String readString = "";             //Clear String
+        
+        while (!LoRaUART.available()) 
+        {;}
+        j="";
+        j = LoRaUART.readString();
+        Serial.println(j);
+        int inx_h = j.indexOf(":");
+        int inx_t = j.indexOf(",");
+        int inx_e = j.indexOf("\r");
+        String data_len = j.substring(inx_h+1,inx_t);
+        Serial.println(data_len);
+        String data = j.substring(inx_t+1,inx_e);
+        Serial.println(data);
+        
+       
+    }
+    String readString = "";                 //Clear String
+    delay(2000);
