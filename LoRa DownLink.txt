@@ -2,41 +2,37 @@
 
 
 
-
 #include <Wire.h>
 #include <SoftwareSerial.h>
 
 SoftwareSerial LoRaUART(10, 11);
+String s = "";  //for get LoRa module string
+String j = "";  //for get downlink message
 
-void setup() 
+void setup()
 {
- Serial.begin(9600);
- LoRaUART.begin(9600);  
- Serial.println("Serial Ready");
+  Serial.begin(9600);
+  LoRaUART.begin(9600);
+  Serial.println("Serial Ready");
 }
 
-String s = "";
-String j = "";
-    
-void loop() 
+void loop()
 {
-  s = "";
-  j = "";
-    while (!LoRaUART.available()) {;}
+  if(LoRaUART.available())
+  {
+    s = "";
     s = LoRaUART.readString();
-    Serial.println(s); 
-    
-    if (s.indexOf("Radio Rx Done")>=0) 
+    Serial.println(s);
+    if(s.indexOf("Radio Rx Done")>=0)  //check if downlink message
     {
         Serial.println("AT+DRX?");
-        LoRaUART.println("AT+DRX?");
-        String readString = "";             //Clear String
-        
-        while (!LoRaUART.available()) 
-        {;}
-        j="";
-        j = LoRaUART.readString();
+        LoRaUART.println("AT+DRX?"); 
+        while(!LoRaUART.available()){;}
+        j = "";
+        j = LoRaUART.readString();  //get downlink message
         Serial.println(j);
+
+        //parse downlink message
         int inx_h = j.indexOf(":");
         int inx_t = j.indexOf(",");
         int inx_e = j.indexOf("\r");
@@ -44,8 +40,7 @@ void loop()
         Serial.println(data_len);
         String data = j.substring(inx_t+1,inx_e);
         Serial.println(data);
-        
-       
     }
-    String readString = "";                 //Clear String
-    delay(2000);
+  }
+  delay(2000);
+}
