@@ -4,8 +4,9 @@
 
 Please download the following files:
 1. NDHU-Course-20190320.pdf
-2. test-sht2x.zip -> Arduino Example for LoRa uplink
-3. SHT2X.zip -> Library for Arduino Example
+2. AT Command Example.txt
+3. test-sht2x.zip -> Arduino Example for LoRa uplink
+4. SHT2X.zip -> Library for Arduino Example
 
 
 [2019.3.27] LoRa Downlink
