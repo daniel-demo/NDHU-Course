@@ -1,5 +1,5 @@
 # NDHU Course
-[2017.11.22]
-Please download these files:
-NDHU-Course-20171122.pdf & 
-test-sht2x.zip
+[2019.3.20]
+Please download the following files:
+1. NDHU-Course-20190320.pdf
+2. test-sht2x.zip
